@@ -11,25 +11,78 @@
   <meta property="og:image" content="https://raw.githubusercontent.com/edwarospina/Invitacion-Boda/refs/heads/main/invitacion.jpg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://edwarospina.github.io/Invitacion-Boda/">
-  
+
   <style>
+    /* Fondo floral animado */
     body {
       margin: 0;
-      background-color: #f5f5f5;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      background: linear-gradient(to bottom right, #fff8f8, #ffeef5);
+      position: relative;
+      font-family: "Poppins", sans-serif;
     }
-    img {
-      max-width: 95%;
+
+    /* Imagen principal */
+    .invitacion {
+      max-width: 90%;
       height: auto;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Flores */
+    .flor {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-image: url('https://cdn.pixabay.com/photo/2017/06/12/22/32/flower-2390293_1280.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0;
+      animation: florecer 6s infinite ease-in-out;
+    }
+
+    .flor:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+    .flor:nth-child(2) { top: 30%; left: 80%; animation-delay: 2s; }
+    .flor:nth-child(3) { top: 70%; left: 10%; animation-delay: 4s; }
+    .flor:nth-child(4) { top: 80%; left: 70%; animation-delay: 6s; }
+    .flor:nth-child(5) { top: 50%; left: 50%; animation-delay: 3s; }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes florecer {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(360deg);
+      }
     }
   </style>
 </head>
+
 <body>
-  <img src="invitacion.jpg" alt="Invitación de Boda Enrique y Yina">
+  <!-- Flores decorativas -->
+  <div class="flor"></div>
+  <div class="flor"></div>
+  <div class="flor"></div>
+  <div class="flor"></div>
+  <div class="flor"></div>
+
+  <!-- Imagen principal -->
+  <img src="invitacion.jpg" alt="Invitación de Boda Enrique y Yina" class="invitacion">
 </body>
 </html>
