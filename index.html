@@ -3,75 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitación de Boda</title>
+  <title>Invitación de Boda - Enrique & Yina 💍</title>
+
+  <!-- Metadatos para compartir -->
+  <meta property="og:title" content="Invitación de Boda - Enrique & Yina 💍">
+  <meta property="og:description" content="¡Acompáñanos a celebrar nuestro amor y esta unión especial! 💒">
+  <meta property="og:image" content="https://raw.githubusercontent.com/edwarospina/Invitacion-Boda/refs/heads/main/invitacion.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edwarospina.github.io/Invitacion-Boda/">
+
   <style>
     body {
       margin: 0;
-      overflow: hidden;
       height: 100vh;
-      background: linear-gradient(135deg, #fffafc, #fdfbfb);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom right, #fff8f8, #ffeef5);
+      position: relative;
+      font-family: "Poppins", sans-serif;
     }
 
-    /* Imagen principal con animación */
-    .fondo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: translate(-50%, -50%) scale(1);
-      animation: zoomIn 40s ease-in-out forwards;
-      z-index: 1;
-      filter: brightness(1.05);
-    }
-
-    @keyframes zoomIn {
-      0% { transform: translate(-50%, -50%) scale(1); }
-      100% { transform: translate(-50%, -50%) scale(1.15); }
-    }
-
-    /* Pétalos animados */
-    .petal {
-      position: absolute;
-      background-color: rgba(255, 192, 203, 0.8);
-      border-radius: 50%;
-      animation: fall 10s linear infinite;
+    /* Imagen principal */
+    .invitacion {
+      max-width: 90%;
+      height: auto;
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
       z-index: 2;
-      filter: blur(0.5px);
+      animation: fadeIn 2s ease-in-out;
     }
 
-    @keyframes fall {
-      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    /* Texto de los nombres y fecha */
+    .texto-boda {
+      position: absolute;
+      top: 10%;
+      text-align: center;
+      color: #a14e69;
+      font-family: "Great Vibes", cursive;
+      font-size: 2.5em;
+      animation: aparecerTexto 3s ease-in-out;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      z-index: 3;
+    }
+
+    .texto-boda span {
+      display: block;
+      font-size: 1.2em;
+      font-family: "Poppins", sans-serif;
+      color: #7a2f49;
+    }
+
+    /* Animación pétalos cayendo */
+    .petalo {
+      position: absolute;
+      top: -10%;
+      background-image: url('https://cdn.pixabay.com/photo/2014/04/03/10/32/petal-311831_1280.png');
+      background-size: cover;
+      width: 30px;
+      height: 30px;
+      opacity: 0.8;
+      animation: caer 10s linear infinite;
+    }
+
+    @keyframes caer {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Aparición suave */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes aparecerTexto {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
+  <!-- Texto principal -->
+  <div class="texto-boda">
+    Enrique & Yina 💕
+    <span>6 de Diciembre de 2025</span>
+  </div>
 
-  <!-- Imagen de fondo -->
-  <img src="rosas-blancas2.jpg" alt="Invitación de boda" class="fondo">
+  <!-- Imagen principal -->
+  <img src="invitacion.jpg" alt="Invitación de Boda Enrique y Yina" class="invitacion">
 
-  <!-- Pétalos generados -->
+  <!-- Pétalos cayendo -->
   <script>
-    const numPetals = 40;
-    for (let i = 0; i < numPetals; i++) {
-      const petal = document.createElement("div");
-      petal.classList.add("petal");
-      petal.style.width = Math.random() * 12 + 6 + "px";
-      petal.style.height = petal.style.width;
-      petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDuration = (Math.random() * 5 + 7) + "s";
-      petal.style.animationDelay = Math.random() * 5 + "s";
-      document.body.appendChild(petal);
+    const numPetalos = 20;
+    for (let i = 0; i < numPetalos; i++) {
+      const petalo = document.createElement('div');
+      petalo.classList.add('petalo');
+      petalo.style.left = Math.random() * 100 + 'vw';
+      petalo.style.animationDuration = 8 + Math.random() * 5 + 's';
+      petalo.style.opacity = Math.random();
+      petalo.style.width = petalo.style.height = 15 + Math.random() * 20 + 'px';
+      document.body.appendChild(petalo);
     }
   </script>
-
-  <!-- Música de fondo -->
-  <audio autoplay loop>
-    <source src="musica-boda.mp3" type="audio/mpeg">
-    Tu navegador no soporta el audio.
-  </audio>
-
 </body>
 </html>
