@@ -1,297 +1,163 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invitación de Boda</title>
   <style>
-    :root {
-      --panel-bg: rgba(255,255,255,0.85);
-      --accent: #a44;
-      --btn-bg: rgba(255,255,255,0.9);
-    }
-
-    html,body {
-      height: 100%;
-      margin: 0;
-      font-family: 'Great Vibes', cursive, "Georgia", serif;
-      color: #4b2e2e;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
     body {
+      margin: 0;
+      height: 100vh;
+      background: url('rosas-blancas2.jpg') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: url('rosas-blancas2.jpg') center center / cover no-repeat fixed;
+      align-items: center;
       overflow: hidden;
+      position: relative;
+      font-family: 'Great Vibes', cursive;
     }
 
     .contenedor {
-      width: 90%;
-      max-width: 960px;
-      margin: 3rem auto;
       position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 40px;
-      border-radius: 18px;
-      background: var(--panel-bg);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
 
-    /* Imagen de fondo dentro del contenedor (tu elemento solicitado) */
-    .fondo {
+    img.fondo {
       position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: contain;
       opacity: 0.97;
-      z-index: 1;
-      pointer-events: none;
     }
 
-    .contenido-sobreimagen {
-      position: relative;
-      z-index: 3; /* por encima de la imagen de fondo */
-    }
-
-    h1 { font-size: 3.2rem; margin: 0 0 10px; color: var(--accent); }
-    .nombres { font-size: 2.2rem; margin: 10px 0 20px; font-weight: 700; }
-    p { font-size: 1.05rem; line-height: 1.6; margin: 0 0 12px; }
-
-    .fecha { color: var(--accent); margin-top: 14px; font-weight: 600; }
-
-    /* Rosas flotantes */
+    /* 🌹 Rosas flotantes */
     .rosa {
       position: absolute;
       width: 60px;
       height: 60px;
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/White_rose_flower.png');
       background-size: cover;
-      opacity: 0.85;
+      animation: flotar 12s linear infinite;
+      opacity: 0.8;
       pointer-events: none;
-      animation: flotar linear infinite;
-      transform-origin: center;
     }
+
     @keyframes flotar {
-      0% { transform: translateY(-20vh) rotate(0deg); opacity: 1; }
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Petalos */
+    /* 🌸 Pétalos rosados cayendo */
     .petalo {
       position: absolute;
-      top: -10vh;
-      background-color: rgba(255, 182, 193, 0.65);
+      top: 0;
+      background-color: rgba(255, 182, 193, 0.6);
       border-radius: 50%;
+      animation: caer 8s linear infinite;
       pointer-events: none;
-      animation: caer linear infinite;
-    }
-    @keyframes caer {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Rosas fijas en marco */
+    @keyframes caer {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    /* 🌼 Rosas fijas (marco) */
     .rosa-fija {
       position: absolute;
       width: 80px;
       height: 80px;
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/White_rose_flower.png');
       background-size: cover;
-      opacity: 0.9;
+      opacity: 0.85;
       pointer-events: none;
-      z-index: 3;
     }
+
     .top-left { top: 10px; left: 10px; }
     .top-right { top: 10px; right: 10px; }
     .bottom-left { bottom: 10px; left: 10px; }
     .bottom-right { bottom: 10px; right: 10px; }
 
-    /* Botón de control de música (fallback) */
-    #controlMusica {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 999;
-      background: var(--btn-bg);
-      border: 1px solid rgba(0,0,0,0.1);
-      padding: 10px 14px;
+    /* 🎵 Botón de música */
+    #btnMusica {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 2px solid #ccc;
       border-radius: 12px;
       cursor: pointer;
-      font-family: "Arial", sans-serif;
-      font-weight: 700;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-      display: none; /* se muestra solo si es necesario */
-      align-items: center;
-      gap: 8px;
-    }
-    #controlMusica svg { width: 20px; height: 20px; }
-
-    /* Indicador pequeño si se está reproduciendo */
-    #indicator {
-      position: absolute;
-      left: 18px;
-      bottom: 18px;
-      z-index: 999;
-      background: rgba(255,255,255,0.75);
-      padding: 6px 10px;
-      border-radius: 10px;
-      display: none;
-      font-family: Arial, sans-serif;
-      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      font-family: 'Arial', sans-serif;
     }
 
-    @media (max-width:600px){
-      h1 { font-size: 2.2rem; }
-      .nombres { font-size: 1.6rem; }
-      .contenedor { padding: 28px; width: 94%; }
+    #btnMusica:hover {
+      background: rgba(255, 240, 240, 0.9);
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-  <!-- Contenedor principal -->
-  <div class="contenedor" role="main" aria-label="Invitación de boda">
-    <!-- tu imagen solicitada dentro del contenedor -->
+  <div class="contenedor">
     <img class="fondo" src="https://raw.githubusercontent.com/edwarospina/Invitacion-Boda/main/invitacion.jpg" alt="Invitación de boda">
-
-    <!-- contenido sobre la imagen (texto) -->
-    <div class="contenido-sobreimagen">
-      <h1>¡Nuestra Boda!</h1>
-      <div class="nombres">Edwar &amp; Lady</div>
-      <p>El amor nos unió en un mismo camino, y hoy deseamos compartir con ustedes la alegría de sellar nuestro compromiso ante Dios y nuestros seres queridos.</p>
-      <p>Nos llena de alegría invitarte a celebrar el amor que nos ha unido durante estos años, y que ahora queremos sellar con nuestro matrimonio para toda la vida. Tu presencia hará que este momento sea aún más especial.</p>
-      <p class="fecha">📅 6 de Diciembre de 2025 &nbsp; • &nbsp; ⛪ Iglesia Nuestra Señora del Carmen, Purificacion</p>
-    </div>
   </div>
 
-  <!-- Rosas fijas -->
+  <!-- 🌼 Rosas blancas fijas -->
   <div class="rosa-fija top-left"></div>
   <div class="rosa-fija top-right"></div>
   <div class="rosa-fija bottom-left"></div>
   <div class="rosa-fija bottom-right"></div>
 
-  <!-- Elemento audio (preload para intentar mejorar la reproducción) -->
-  <audio id="musica" src="musica-boda.mp3" preload="auto" playsinline></audio>
+  <!-- 🎵 Música -->
+  <audio id="musicaFondo" loop>
+    <source src="musica-boda.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
 
-  <!-- Botón de control (aparece si autoplay es bloqueado) -->
-  <button id="controlMusica" aria-label="Reproducir música">
-    <svg id="icono" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 4v16l12-8L6 4z" fill="#4b2e2e"/>
-    </svg>
-    <span id="textoBtn">Activar música</span>
-  </button>
-
-  <div id="indicator">🔊 Música activada</div>
+  <button id="btnMusica">🎵 Reproducir música</button>
 
   <script>
-    // Generar rosas flotantes y pétalos
-    (function generarFlores(){
-      const body = document.body;
+    // 🌹 Rosas blancas flotantes
+    const numRosas = 8;
+    for (let i = 0; i < numRosas; i++) {
+      const rosa = document.createElement('div');
+      rosa.classList.add('rosa');
+      rosa.style.left = Math.random() * 100 + 'vw';
+      rosa.style.animationDuration = 10 + Math.random() * 8 + 's';
+      rosa.style.width = rosa.style.height = 40 + Math.random() * 40 + 'px';
+      document.body.appendChild(rosa);
+    }
 
-      // rosas flotantes
-      const numRosas = 8;
-      for (let i = 0; i < numRosas; i++) {
-        const r = document.createElement('div');
-        r.className = 'rosa';
-        const size = 30 + Math.random() * 60;
-        r.style.width = r.style.height = size + 'px';
-        r.style.left = Math.random() * 100 + 'vw';
-        r.style.top = (-20 - Math.random()*30) + 'vh';
-        r.style.animationDuration = (8 + Math.random()*12) + 's';
-        r.style.opacity = 0.7 + Math.random()*0.3;
-        body.appendChild(r);
+    // 🌸 Pétalos cayendo
+    const numPetalos = 20;
+    for (let i = 0; i < numPetalos; i++) {
+      const petalo = document.createElement('div');
+      petalo.classList.add('petalo');
+      petalo.style.left = Math.random() * 100 + 'vw';
+      petalo.style.animationDuration = 8 + Math.random() * 5 + 's';
+      petalo.style.opacity = Math.random();
+      petalo.style.width = petalo.style.height = 10 + Math.random() * 20 + 'px';
+      document.body.appendChild(petalo);
+    }
+
+    // 🎵 Control de música
+    const audio = document.getElementById('musicaFondo');
+    const boton = document.getElementById('btnMusica');
+
+    boton.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        boton.textContent = '⏸️ Pausar música';
+      } else {
+        audio.pause();
+        boton.textContent = '🎵 Reproducir música';
       }
-
-      // pétalos
-      const numPetalos = 20;
-      for (let i = 0; i < numPetalos; i++) {
-        const p = document.createElement('div');
-        p.className = 'petalo';
-        const size = 8 + Math.random() * 24;
-        p.style.width = p.style.height = size + 'px';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.top = (-10 - Math.random()*40) + 'vh';
-        p.style.animationDuration = (6 + Math.random()*8) + 's';
-        p.style.opacity = 0.4 + Math.random()*0.6;
-        body.appendChild(p);
-      }
-    })();
-
-    // Control de reproducción: Intento automático (Opción 2 con retraso) + fallback botón
-    (function controlAudio(){
-      const audio = document.getElementById('musica');
-      const btn = document.getElementById('controlMusica');
-      const textoBtn = document.getElementById('textoBtn');
-      const icono = document.getElementById('icono');
-      const indicator = document.getElementById('indicator');
-
-      // Función para actualizar UI cuando suena/pausa
-      function actualizarEstado() {
-        if (!audio.paused) {
-          textoBtn.textContent = 'Pausar música';
-          // icono de pausa
-          icono.innerHTML = '<path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="#4b2e2e"/>';
-          indicator.style.display = 'block';
-        } else {
-          textoBtn.textContent = 'Reproducir música';
-          icono.innerHTML = '<path d="M6 4v16l12-8L6 4z" fill="#4b2e2e"/>';
-          indicator.style.display = 'none';
-        }
-      }
-
-      // Intentar reproducir después de 2 segundos
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          audio.play().then(() => {
-            // Si se reproduce sin bloqueo, actualizamos estado
-            actualizarEstado();
-          }).catch((err) => {
-            // Si se bloqueó, mostramos el botón para que el usuario lo active
-            console.log("Autoplay bloqueado por el navegador:", err);
-            btn.style.display = 'flex';
-            textoBtn.textContent = 'Activar música';
-            icono.innerHTML = '<path d="M6 4v16l12-8L6 4z" fill="#4b2e2e"/>';
-          });
-        }, 2000);
-      });
-
-      // Si el autoplay fue bloqueado, permitimos reproducir al primer click (fallback)
-      btn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        try {
-          if (audio.paused) {
-            await audio.play();
-          } else {
-            audio.pause();
-          }
-          actualizarEstado();
-        } catch (error) {
-          console.log("Error al reproducir mediante botón:", error);
-        }
-      });
-
-      // Además, reproducir en la primera interacción con la página (por si el usuario toca anywhere)
-      document.addEventListener('click', async function oneTimePlay() {
-        try {
-          if (audio.paused) {
-            await audio.play();
-            actualizarEstado();
-            btn.style.display = 'none';
-          }
-        } catch (err) {
-          // nada: si falla, el botón seguirá visible
-        }
-        document.removeEventListener('click', oneTimePlay);
-      }, { once: true });
-
-      // Mantener indicador en caso de que se pause desde consola o externalmente
-      audio.addEventListener('play', actualizarEstado);
-      audio.addEventListener('pause', actualizarEstado);
-    })();
+    });
   </script>
 </body>
 </html>
