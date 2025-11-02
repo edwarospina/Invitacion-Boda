@@ -80,26 +80,6 @@
     .top-right { top: 10px; right: 10px; }
     .bottom-left { bottom: 10px; left: 10px; }
     .bottom-right { bottom: 10px; right: 10px; }
-
-    /* 🎵 Botón de música */
-    #btnMusica {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      font-size: 18px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 2px solid #ccc;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Arial', sans-serif;
-    }
-
-    #btnMusica:hover {
-      background: rgba(255, 240, 240, 0.9);
-      transform: scale(1.05);
-    }
   </style>
 </head>
 <body>
@@ -113,16 +93,14 @@
   <div class="rosa-fija bottom-left"></div>
   <div class="rosa-fija bottom-right"></div>
 
-  <!-- 🎵 Música -->
-  <audio id="musicaFondo" loop>
+  <!-- 🎵 Música de fondo (autoplay con fade-in) -->
+  <audio id="musicaFondo" autoplay loop muted>
     <source src="musica-boda.mp3" type="audio/mpeg">
     Tu navegador no soporta el elemento de audio.
   </audio>
 
-  <button id="btnMusica">🎵 Reproducir música</button>
-
   <script>
-    // 🌹 Rosas blancas flotantes
+    // 🌹 Rosas flotantes
     const numRosas = 8;
     for (let i = 0; i < numRosas; i++) {
       const rosa = document.createElement('div');
@@ -145,17 +123,19 @@
       document.body.appendChild(petalo);
     }
 
-    // 🎵 Control de música
+    // 🎵 Reproducción automática con volumen progresivo
     const audio = document.getElementById('musicaFondo');
-    const boton = document.getElementById('btnMusica');
 
-    boton.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        boton.textContent = '⏸️ Pausar música';
-      } else {
-        audio.pause();
-        boton.textContent = '🎵 Reproducir música';
+    window.addEventListener('load', async () => {
+      try {
+        await audio.play();
+        // Desmutear suavemente después de 1 segundo
+        setTimeout(() => {
+          audio.muted = false;
+          audio.volume = 1.0;
+        }, 1000);
+      } catch (e) {
+        console.log("⚠️ El navegador bloqueó el autoplay. Requiere interacción del usuario.");
       }
     });
   </script>
