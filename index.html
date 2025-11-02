@@ -46,14 +46,8 @@
     }
 
     @keyframes flotar {
-      0% {
-        transform: translateY(-10vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
     /* 🌸 Pétalos rosados cayendo */
@@ -67,12 +61,8 @@
     }
 
     @keyframes caer {
-      0% {
-        transform: translateY(0) rotate(0deg);
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-      }
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
     }
 
     /* 🌼 Rosas fijas (marco) */
@@ -90,6 +80,26 @@
     .top-right { top: 10px; right: 10px; }
     .bottom-left { bottom: 10px; left: 10px; }
     .bottom-right { bottom: 10px; right: 10px; }
+
+    /* 🎵 Botón de música */
+    #btnMusica {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Arial', sans-serif;
+    }
+
+    #btnMusica:hover {
+      background: rgba(255, 240, 240, 0.9);
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -103,11 +113,13 @@
   <div class="rosa-fija bottom-left"></div>
   <div class="rosa-fija bottom-right"></div>
 
-  <!-- 🎵 Música de fondo -->
-  <audio autoplay loop>
+  <!-- 🎵 Música -->
+  <audio id="musicaFondo" loop>
     <source src="musica-boda.mp3" type="audio/mpeg">
     Tu navegador no soporta el elemento de audio.
   </audio>
+
+  <button id="btnMusica">🎵 Reproducir música</button>
 
   <script>
     // 🌹 Rosas blancas flotantes
@@ -132,6 +144,20 @@
       petalo.style.width = petalo.style.height = 10 + Math.random() * 20 + 'px';
       document.body.appendChild(petalo);
     }
+
+    // 🎵 Control de música
+    const audio = document.getElementById('musicaFondo');
+    const boton = document.getElementById('btnMusica');
+
+    boton.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        boton.textContent = '⏸️ Pausar música';
+      } else {
+        audio.pause();
+        boton.textContent = '🎵 Reproducir música';
+      }
+    });
   </script>
 </body>
 </html>
