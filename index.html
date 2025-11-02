@@ -21,45 +21,47 @@
       height: 100%;
       object-fit: cover;
       transform: translate(-50%, -50%) scale(1);
-      animation: zoomIn 30s ease-in-out forwards;
+      animation: zoomIn 40s ease-in-out forwards;
       z-index: 1;
+      filter: brightness(1.05);
     }
 
     @keyframes zoomIn {
       0% { transform: translate(-50%, -50%) scale(1); }
-      100% { transform: translate(-50%, -50%) scale(1.1); }
+      100% { transform: translate(-50%, -50%) scale(1.15); }
     }
 
     /* Pétalos animados */
     .petal {
       position: absolute;
-      background-color: rgba(255, 182, 193, 0.8);
+      background-color: rgba(255, 192, 203, 0.8);
       border-radius: 50%;
-      animation: fall 8s linear infinite;
+      animation: fall 10s linear infinite;
       z-index: 2;
+      filter: blur(0.5px);
     }
 
     @keyframes fall {
       0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
   <!-- Imagen de fondo -->
-  <img src="https://raw.githubusercontent.com/edwarospina/Invitacion-Boda/refs/heads/main/rosas-blancas2.jpg" alt="Invitación de boda" class="fondo">
+  <img src="rosas-blancas2.jpg" alt="Invitación de boda" class="fondo">
 
   <!-- Pétalos generados -->
   <script>
-    const numPetals = 30;
+    const numPetals = 40;
     for (let i = 0; i < numPetals; i++) {
       const petal = document.createElement("div");
       petal.classList.add("petal");
-      petal.style.width = Math.random() * 10 + 5 + "px";
+      petal.style.width = Math.random() * 12 + 6 + "px";
       petal.style.height = petal.style.width;
       petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      petal.style.animationDuration = (Math.random() * 5 + 7) + "s";
       petal.style.animationDelay = Math.random() * 5 + "s";
       document.body.appendChild(petal);
     }
