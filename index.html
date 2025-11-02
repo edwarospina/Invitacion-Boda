@@ -1,110 +1,102 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitación de Boda - Enrique & Yina 💍</title>
-
-  <!-- Metadatos para compartir -->
-  <meta property="og:title" content="Invitación de Boda - Enrique & Yina 💍">
-  <meta property="og:description" content="¡Acompáñanos a celebrar nuestro amor y esta unión especial! 💒">
-  <meta property="og:image" content="https://raw.githubusercontent.com/edwarospina/Invitacion-Boda/refs/heads/main/invitacion.jpg">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://edwarospina.github.io/Invitacion-Boda/">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invitación de Boda</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
-      overflow: hidden;
+      background: linear-gradient(to bottom right, #fffafc, #f9f9f9);
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(to bottom right, #fff8f8, #ffeef5);
+      overflow: hidden;
       position: relative;
-      font-family: "Poppins", sans-serif;
+      font-family: 'Great Vibes', cursive;
     }
 
-    /* Imagen principal */
-    .invitacion {
-      max-width: 90%;
-      height: auto;
-      border-radius: 25px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      z-index: 2;
-      animation: fadeIn 2s ease-in-out;
+    .contenedor {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
 
-    /* Texto de los nombres y fecha */
-    .texto-boda {
+    img.fondo {
       position: absolute;
-      top: 10%;
-      text-align: center;
-      color: #a14e69;
-      font-family: "Great Vibes", cursive;
-      font-size: 2.5em;
-      animation: aparecerTexto 3s ease-in-out;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-      z-index: 3;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.95;
     }
 
-    .texto-boda span {
-      display: block;
-      font-size: 1.2em;
-      font-family: "Poppins", sans-serif;
-      color: #7a2f49;
+    .rosa {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/White_rose_flower.png');
+      background-size: cover;
+      animation: flotar 12s linear infinite;
+      opacity: 0.8;
     }
 
-    /* Animación pétalos cayendo */
+    @keyframes flotar {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
     .petalo {
       position: absolute;
-      top: -10%;
-      background-image: url('https://cdn.pixabay.com/photo/2014/04/03/10/32/petal-311831_1280.png');
-      background-size: cover;
-      width: 30px;
-      height: 30px;
-      opacity: 0.8;
-      animation: caer 10s linear infinite;
+      top: 0;
+      background-color: rgba(255, 192, 203, 0.7);
+      border-radius: 50%;
+      animation: caer 8s linear infinite;
     }
 
     @keyframes caer {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
-
-    /* Aparición suave */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes aparecerTexto {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
     }
   </style>
 </head>
-
 <body>
-  <!-- Texto principal -->
-  <div class="texto-boda">
-    Enrique & Yina 💕
-    <span>6 de Diciembre de 2025</span>
+  <div class="contenedor">
+    <img class="fondo" src="invitacion.png" alt="Invitación de boda">
   </div>
 
-  <!-- Imagen principal -->
-  <img src="invitacion.jpg" alt="Invitación de Boda Enrique y Yina" class="invitacion">
-
-  <!-- Pétalos cayendo -->
   <script>
-    const numPetalos = 20;
+    // 🌹 Animación de rosas blancas flotando
+    const numRosas = 10;
+    for (let i = 0; i < numRosas; i++) {
+      const rosa = document.createElement('div');
+      rosa.classList.add('rosa');
+      rosa.style.left = Math.random() * 100 + 'vw';
+      rosa.style.animationDuration = 10 + Math.random() * 8 + 's';
+      rosa.style.width = rosa.style.height = 40 + Math.random() * 40 + 'px';
+      document.body.appendChild(rosa);
+    }
+
+    // 🌸 Pétalos rosados suaves cayendo
+    const numPetalos = 15;
     for (let i = 0; i < numPetalos; i++) {
       const petalo = document.createElement('div');
       petalo.classList.add('petalo');
       petalo.style.left = Math.random() * 100 + 'vw';
       petalo.style.animationDuration = 8 + Math.random() * 5 + 's';
       petalo.style.opacity = Math.random();
-      petalo.style.width = petalo.style.height = 15 + Math.random() * 20 + 'px';
+      petalo.style.width = petalo.style.height = 10 + Math.random() * 20 + 'px';
       document.body.appendChild(petalo);
     }
   </script>
