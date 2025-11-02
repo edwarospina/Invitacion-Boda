@@ -24,12 +24,20 @@
       overflow: hidden;
     }
 
+    /* 💞 Imagen principal con efecto de zoom */
     img.fondo {
       position: absolute;
       width: 100%;
       height: 100%;
       object-fit: contain;
       opacity: 0.97;
+      animation: zoomIn 25s ease-in-out infinite alternate;
+      transition: transform 2s ease-in-out;
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
     }
 
     /* 🌹 Rosas flotantes */
@@ -66,12 +74,8 @@
     }
 
     @keyframes caer {
-      0% {
-        transform: translateY(0) rotate(0deg);
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-      }
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
     }
 
     /* 🌼 Rosas fijas (marco) */
@@ -89,6 +93,26 @@
     .top-right { top: 10px; right: 10px; }
     .bottom-left { bottom: 10px; left: 10px; }
     .bottom-right { bottom: 10px; right: 10px; }
+
+    /* 🎶 Botón de música */
+    #music-control {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    #music-control:hover {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -96,14 +120,22 @@
     <img class="fondo" src="https://raw.githubusercontent.com/edwarospina/Invitacion-Boda/main/invitacion.jpg" alt="Invitación de boda">
   </div>
 
-  <!-- 🌼 Rosas blancas fijas -->
+  <!-- 🌼 Rosas fijas (marco) -->
   <div class="rosa-fija top-left"></div>
   <div class="rosa-fija top-right"></div>
   <div class="rosa-fija bottom-left"></div>
   <div class="rosa-fija bottom-right"></div>
 
+  <!-- 🎵 Botón de música -->
+  <button id="music-control">🎵</button>
+
+  <!-- 🎶 Audio -->
+  <audio id="background-music" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/14/audio_9c8a8a9a86.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
-    // 🌹 Rosas blancas flotantes
+    // 🌹 Rosas flotantes
     const numRosas = 8;
     for (let i = 0; i < numRosas; i++) {
       const rosa = document.createElement('div');
@@ -114,7 +146,7 @@
       document.body.appendChild(rosa);
     }
 
-    // 🌸 Pétalos cayendo
+    // 🌸 Pétalos rosados
     const numPetalos = 20;
     for (let i = 0; i < numPetalos; i++) {
       const petalo = document.createElement('div');
@@ -125,6 +157,22 @@
       petalo.style.width = petalo.style.height = 10 + Math.random() * 20 + 'px';
       document.body.appendChild(petalo);
     }
+
+    // 🎶 Control de música
+    const music = document.getElementById('background-music');
+    const control = document.getElementById('music-control');
+    let playing = false;
+
+    control.addEventListener('click', () => {
+      if (playing) {
+        music.pause();
+        control.textContent = '🎵';
+      } else {
+        music.play();
+        control.textContent = '⏸️';
+      }
+      playing = !playing;
+    });
   </script>
 </body>
 </html>
