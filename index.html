@@ -13,7 +13,6 @@
   <meta property="og:url" content="https://edwarospina.github.io/Invitacion-Boda/">
 
   <style>
-    /* Fondo floral animado */
     body {
       margin: 0;
       height: 100vh;
@@ -32,57 +31,82 @@
       height: auto;
       border-radius: 25px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      position: relative;
       z-index: 2;
       animation: fadeIn 2s ease-in-out;
     }
 
-    /* Flores */
-    .flor {
+    /* Texto de los nombres y fecha */
+    .texto-boda {
       position: absolute;
-      width: 80px;
-      height: 80px;
-      background-image: url('https://cdn.pixabay.com/photo/2017/06/12/22/32/flower-2390293_1280.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      opacity: 0;
-      animation: florecer 6s infinite ease-in-out;
+      top: 10%;
+      text-align: center;
+      color: #a14e69;
+      font-family: "Great Vibes", cursive;
+      font-size: 2.5em;
+      animation: aparecerTexto 3s ease-in-out;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      z-index: 3;
     }
 
-    .flor:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
-    .flor:nth-child(2) { top: 30%; left: 80%; animation-delay: 2s; }
-    .flor:nth-child(3) { top: 70%; left: 10%; animation-delay: 4s; }
-    .flor:nth-child(4) { top: 80%; left: 70%; animation-delay: 6s; }
-    .flor:nth-child(5) { top: 50%; left: 50%; animation-delay: 3s; }
+    .texto-boda span {
+      display: block;
+      font-size: 1.2em;
+      font-family: "Poppins", sans-serif;
+      color: #7a2f49;
+    }
 
-    /* Animaciones */
+    /* Animación pétalos cayendo */
+    .petalo {
+      position: absolute;
+      top: -10%;
+      background-image: url('https://cdn.pixabay.com/photo/2014/04/03/10/32/petal-311831_1280.png');
+      background-size: cover;
+      width: 30px;
+      height: 30px;
+      opacity: 0.8;
+      animation: caer 10s linear infinite;
+    }
+
+    @keyframes caer {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Aparición suave */
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes florecer {
-      0%, 100% {
-        opacity: 0;
-        transform: scale(0.5) rotate(0deg);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.2) rotate(360deg);
-      }
+    @keyframes aparecerTexto {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
-  <!-- Flores decorativas -->
-  <div class="flor"></div>
-  <div class="flor"></div>
-  <div class="flor"></div>
-  <div class="flor"></div>
-  <div class="flor"></div>
+  <!-- Texto principal -->
+  <div class="texto-boda">
+    Enrique & Yina 💕
+    <span>6 de Diciembre de 2025</span>
+  </div>
 
   <!-- Imagen principal -->
   <img src="invitacion.jpg" alt="Invitación de Boda Enrique y Yina" class="invitacion">
+
+  <!-- Pétalos cayendo -->
+  <script>
+    const numPetalos = 20;
+    for (let i = 0; i < numPetalos; i++) {
+      const petalo = document.createElement('div');
+      petalo.classList.add('petalo');
+      petalo.style.left = Math.random() * 100 + 'vw';
+      petalo.style.animationDuration = 8 + Math.random() * 5 + 's';
+      petalo.style.opacity = Math.random();
+      petalo.style.width = petalo.style.height = 15 + Math.random() * 20 + 'px';
+      document.body.appendChild(petalo);
+    }
+  </script>
 </body>
 </html>
