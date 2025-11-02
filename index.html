@@ -28,10 +28,11 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      opacity: 0.95;
+      object-fit: contain;
+      opacity: 0.97;
     }
 
+    /* 🌹 Rosas flotantes */
     .rosa {
       position: absolute;
       width: 60px;
@@ -40,11 +41,12 @@
       background-size: cover;
       animation: flotar 12s linear infinite;
       opacity: 0.8;
+      pointer-events: none;
     }
 
     @keyframes flotar {
       0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(-10vh) rotate(0deg);
         opacity: 1;
       }
       100% {
@@ -53,12 +55,14 @@
       }
     }
 
+    /* 🌸 Pétalos rosados cayendo */
     .petalo {
       position: absolute;
       top: 0;
-      background-color: rgba(255, 192, 203, 0.7);
+      background-color: rgba(255, 182, 193, 0.6);
       border-radius: 50%;
       animation: caer 8s linear infinite;
+      pointer-events: none;
     }
 
     @keyframes caer {
@@ -69,16 +73,38 @@
         transform: translateY(100vh) rotate(360deg);
       }
     }
+
+    /* 🌼 Rosas fijas (marco) */
+    .rosa-fija {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/White_rose_flower.png');
+      background-size: cover;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .top-left { top: 10px; left: 10px; }
+    .top-right { top: 10px; right: 10px; }
+    .bottom-left { bottom: 10px; left: 10px; }
+    .bottom-right { bottom: 10px; right: 10px; }
   </style>
 </head>
 <body>
   <div class="contenedor">
-    <img class="fondo" src="invitacion.jpg" alt="Invitación de boda">
+    <img class="fondo" src="https://raw.githubusercontent.com/edwarospina/Invitacion-Boda/main/invitacion.jpg" alt="Invitación de boda">
   </div>
 
+  <!-- 🌼 Rosas blancas fijas -->
+  <div class="rosa-fija top-left"></div>
+  <div class="rosa-fija top-right"></div>
+  <div class="rosa-fija bottom-left"></div>
+  <div class="rosa-fija bottom-right"></div>
+
   <script>
-    // 🌹 Animación de rosas blancas flotando
-    const numRosas = 10;
+    // 🌹 Rosas blancas flotantes
+    const numRosas = 8;
     for (let i = 0; i < numRosas; i++) {
       const rosa = document.createElement('div');
       rosa.classList.add('rosa');
@@ -88,8 +114,8 @@
       document.body.appendChild(rosa);
     }
 
-    // 🌸 Pétalos rosados suaves cayendo
-    const numPetalos = 15;
+    // 🌸 Pétalos cayendo
+    const numPetalos = 20;
     for (let i = 0; i < numPetalos; i++) {
       const petalo = document.createElement('div');
       petalo.classList.add('petalo');
